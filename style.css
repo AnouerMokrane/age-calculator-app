@@ -22,6 +22,13 @@ main {
   align-items: center;
   background-color: var(--Off-white);
 }
+.sr-only {
+  position: absolute;
+  width: 0;
+  height: 0;
+  overflow: hidden;
+  color: white;
+}
 .container {
   min-width: 375px;
   background-color: var(--White);
@@ -113,15 +120,19 @@ main {
 @media (min-width: 992px) {
   .container {
     width: 800px;
-    padding: 20px 35px;
+    padding: 60px 45px;
     border-bottom-right-radius: 150px;
   }
   .container .inputs {
     padding-top: 10px;
     padding-bottom: 40px;
   }
+  .container .inputs .label {
+    font-size: 14px;
+  }
   .container .inputs input {
     width: 150px;
+    padding: 20px 15px;
   }
   .container .btn {
     width: 70px;
