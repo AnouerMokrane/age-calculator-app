@@ -17,14 +17,10 @@ dayInput.oninput = () => {
 
   if (dayInputvalue <= 0 || dayInputvalue > 31 || dayInputvalue.length > 2) {
     dayInput.parentNode.classList.add("has-err");
-    dayInput.style.borderColor = "hsl(0, 100%, 67%)";
     daysErrMsg.textContent = "Must be a valid day";
-    labels[0].style.color = "hsl(0, 100%, 67%)";
   } else {
     dayInput.parentNode.classList.remove("has-err");
-    dayInput.style.borderColor = "hsl(0, 0%, 86%)";
     daysErrMsg.textContent = "";
-    labels[0].style.color = "hsl(0, 1%, 44%)";
   }
 };
 
@@ -32,14 +28,10 @@ monthInput.oninput = () => {
   let val = monthInput.value;
   if (val <= 0 || val > 12 || val.length > 2) {
     monthInput.parentNode.classList.add("has-err");
-    monthInput.style.borderColor = "hsl(0, 100%, 67%)";
     monthsErrMsg.textContent = "Must be a valid month";
-    labels[1].style.color = "hsl(0, 100%, 67%)";
   } else {
     monthInput.parentNode.classList.remove("has-err");
-    monthInput.style.borderColor = "hsl(0, 0%, 86%)";
     monthsErrMsg.textContent = "";
-    labels[1].style.color = "hsl(0, 1%, 44%)";
   }
 };
 yearInput.oninput = () => {
@@ -48,34 +40,33 @@ yearInput.oninput = () => {
 
   if (!val.match(regx)) {
     yearInput.parentNode.classList.add("has-err");
-    yearInput.style.borderColor = "hsl(0, 100%, 67%)";
     yearsErrMsg.textContent = "Must be a valid year";
-    labels[2].style.color = "hsl(0, 100%, 67%)";
   } else if (val > currentDate.getFullYear()) {
     yearInput.parentNode.classList.add("has-err");
-    yearInput.style.borderColor = "hsl(0, 100%, 67%)";
     yearsErrMsg.textContent = "Must be in the past";
-    labels[2].style.color = "hsl(0, 100%, 67%)";
   } else {
     yearInput.parentNode.classList.remove("has-err");
-    yearInput.style.borderColor = "hsl(0, 0%, 86%)";
     yearsErrMsg.textContent = "";
-    labels[2].style.color = "hsl(0, 1%, 44%)";
   }
 };
 
 btn.addEventListener("click", handleClick);
 
 function handleClick() {
-  console.log(isValidDate(dayInput.value, monthInput.value, yearInput.value));
+  let inputs = Array.from(document.querySelectorAll("input"));
 
-  if (!isValidDate(dayInput.value, monthInput.value, yearInput.value)) {
-    dayInput.parentNode.classList.add("has-err");
-    dayInput.style.borderColor = "hsl(0, 100%, 67%)";
-    daysErrMsg.textContent = "Must be a valid day";
-    labels[0].style.color = "hsl(0, 100%, 67%)";
+  for (let i = 0; i < inputs.length; i++) {
+    if (inputs[i].value === "") {
+      document.querySelectorAll(".err")[i].textContent =
+        "this field is requared";
+    }
   }
-
+  if (!isValidDate(dayInput.value, monthInput.value, yearInput.value)) {
+    if (dayInput.value !== "") {
+      dayInput.parentNode.classList.add("has-err");
+      daysErrMsg.textContent = "Must be a valid day";
+    }
+  }
   if (
     !dayInput.parentNode.classList.contains("has-err") &&
     !monthInput.parentNode.classList.contains("has-err") &&
@@ -87,19 +78,6 @@ function handleClick() {
       yearInput.value !== ""
     ) {
       calcAge(dayInput.value, monthInput.value, yearInput.value);
-    } else {
-      dayInput.style.borderColor = "hsl(0, 100%, 67%)";
-      labels[0].style.color = "hsl(0, 100%, 67%)";
-
-      monthInput.style.borderColor = "hsl(0, 100%, 67%)";
-      labels[1].style.color = "hsl(0, 100%, 67%)";
-
-      yearInput.style.borderColor = "hsl(0, 100%, 67%)";
-      labels[2].style.color = "hsl(0, 100%, 67%)";
-
-      daysErrMsg.textContent = "this field is required";
-      monthsErrMsg.textContent = "this field is required";
-      yearsErrMsg.textContent = "this field is required";
     }
   }
 }
