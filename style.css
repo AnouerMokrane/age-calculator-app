@@ -44,6 +44,7 @@ main {
   border-bottom: 2px solid var(--Light-grey);
   position: relative;
 }
+
 .container .inputs .label {
   display: block;
   color: var(--Smokey-grey);
@@ -52,6 +53,7 @@ main {
   text-transform: uppercase;
   letter-spacing: 2px;
 }
+
 .container .inputs input {
   width: 90px;
   padding: 10px 10px;
